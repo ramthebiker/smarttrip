@@ -321,7 +321,7 @@ var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
   $http({
     method : "GET",
-    url : "http://cors.io/?u=https://smarttriptest.azurewebsites.net/api/flight/Chennai(MAA)/Bangalore(BLR)/2016-03-21"
+    url : "https://smarttriptest.azurewebsites.net/api/flight/Chennai(MAA)/Bangalore(BLR)/2016-03-21"
   }).then(function mySucces(response) {
       $scope.names = response.data;
 	  $timeout ($scope.fetch, 0);
