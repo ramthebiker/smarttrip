@@ -16,7 +16,7 @@
     <![endif]-->
    <script src="js/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/angular.min.js"></script>
+   <script src="js/angular.min.js"></script>
   
         <script src="js/bootstrap-datepicker.js"></script>
 		<script type="text/javascript">
@@ -127,101 +127,9 @@ margin:0px;
    .form-control1 {width:auto;
 }
     </style>
+	
 </head>
 <body>
-<!--<div ng-controller="myMovie">
-<h1>Simple Moview Library</h1>
-<table style="width:100%" class="table table-striped">
- <tr>
-    <th>Title</th>
-    <th>Year</th> 
-    <th>Rated</th>
-	<th>Released</th>
-	<th>Runtime</th>
-	<th>Genre</th>
-	<th>Director</th>
-	<th>Writer</th>
-	<th>Actors</th>
-	<th>Plot</th>
-  </tr> 
-  <tr ng-repeat="film in movies">
-    <td>{{film.Title}}</td>
-    <td>{{film.Year}}</td> 
-    <td>{{film.Rated}}</td>
-	<td>{{film.Released}}</td>
-	<td>{{film.Runtime}}</td>
-	<td>{{film.Genre}}</td>
-	<td>{{film.Director}}</td>
-	<td>{{film.Writer}}</td>
-	<td>{{film.Actors}}</td>
-	<td>{{film.Plot}}</td>
-  </tr>
-  </table>
-</div>
-
-<script>
-/*var myapp = angular.module('MovieApp', []);
-myapp.controller('MovieController',function ($scope, $http)
-    {
-        $http.get("http://www.omdbapi.com/?t=Avatar&y=&plot=full&r=json").success(function(response){
-$scope.movies = response;
-    });
-
-});*/
-
-var app = angular.module('MyApp', []);
-app.controller('myMovie', function($scope, $http) {
-  $http.get("http://www.w3schools.com/angular/customers.php")
-  .then(function(response) {
-      $scope.movies = response.data;
-  });
-});
-
-
-</script>
-
--->
-
-<div ng-app="myApp" ng-controller="customersCtrl"> 
-    <table style="width:100%" class="table table-striped">
- <tr>
-    <th>Name</th>
-    <th>City</th> 
-    <th>Country</th>
-	 </tr> 
-  <tr ng-repeat="x in myData">
-    <td>{{x.Name}}</td>
-    <td>{{x.City}}</td> 
-    <td>{{x.Country}}</td>
-	</tr>
-  </table>
-  
-  <input type="text" ng-model="test">
-</div>
-
-<script>
-/*var app = angular.module('myApp', []);
-app.filter('myFormat', function() {
-    return function(x) {
-        var i, c, txt = "";        
-        for (i = 0; i < x.length; i++) {		
-		if(x.name == name && x.city == city && x.country == country )
-            c = x[i];
-           
-            txt += c;
-        }
-        return txt;
-    };
-});*/
-var app = angular.module('myApp', []);
-app.controller('customersCtrl', function($scope, $http) {
-  $http.get("http://www.w3schools.com/angular/customers.php").then(function (response) {
-      $scope.myData = response.data.records;
-  });
-});
-</script>
-
-
 <div class="container-fluid">
 <div class="row">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -276,7 +184,130 @@ app.controller('customersCtrl', function($scope, $http) {
       </div>
 <div class="clearfix"></div>
 </div></div>
-
+<div class="row">
+           <div class="panel-default panel-heading"><h4>Flight Results</h4></div>
+      <div class="panel-body"><ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Chennai 1</a></li>
+  <li><a data-toggle="tab" href="#menu1">Chennai 2</a></li>
+  <li><a data-toggle="tab" href="#menu2">Chennai 3</a></li>
+</ul>
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <div id="no-more-tables" ng-app="myApp" ng-controller="myCtrl">
+           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+					<th>Preference</th>
+        				<th>From</th>
+        				<th>To</th>
+        				<th>Departure</th>
+						 </tr>
+        		</thead>
+        		<tbody>
+        			<tr ng-repeat="x in names">
+        				<td data-title="Preference"><img src="images/Green.jpg" alt="Green"></td>
+        				<td data-title="{{x.From}}">{{x.From}}</td>
+						<td data-title="{{x.To}}">{{x.To}}</td>
+        				<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>
+        				</tr>
+        			
+        		</tbody>
+        	</table>
+        </div>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <div id="no-more-tables">
+           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+        				<th>Preference</th>
+        				<th>Airline</th>
+        				<th class="numeric">Departure</th>
+        				<th class="numeric">Arrival</th>
+        				<th class="numeric">Weather</th>
+        				<th class="numeric">Social</th>
+       				</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Green.jpg" alt="Green"></td>
+        				<td data-title="Airline">Air India</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">05:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Blue.jpg" alt="Blue"></td>
+        				<td data-title="Airline">Air Asia</td>
+        				<td data-title="Time" class="numeric">01:50</td>
+        				<td data-title="Time" class="numeric">06:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Red.jpg" alt="Red"></td>
+        				<td data-title="Airline">Jet Airways</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">09:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        		</tbody>
+        	</table>
+        </div>
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <div id="no-more-tables">
+           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+        				<th>Preference</th>
+        				<th>Airline</th>
+        				<th class="numeric">Departure</th>
+        				<th class="numeric">Arrival</th>
+        				<th class="numeric">Weather</th>
+        				<th class="numeric">Social</th>
+       				</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Green.jpg" alt="Green"></td>
+        				<td data-title="Airline">Air India</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">05:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Blue.jpg" alt="Blue"></td>
+        				<td data-title="Airline">Air Asia</td>
+        				<td data-title="Time" class="numeric">01:50</td>
+        				<td data-title="Time" class="numeric">06:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Red.jpg" alt="Red"></td>
+        				<td data-title="Airline">Jet Airways</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">09:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        		</tbody>
+        	</table>
+        </div>
+  </div>
+</div>
+</div>
+  </div>
 <div class="row">
 <footer class="panel-footer text-center">
   <p>@ Smart Trip Planner</p>
@@ -284,5 +315,18 @@ app.controller('customersCtrl', function($scope, $http) {
 </div>
 
 </div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http({
+    method : "GET",
+    url : "http://cors.io/?u=https://smarttriptest.azurewebsites.net/api/flight/Chennai(MAA)/Bangalore(BLR)/2016-03-21"
+  }).then(function mySucces(response) {
+      $scope.names = response.data;
+	  $timeout ($scope.fetch, 0);
+    });
+});
+</script>
 </body>
 </html>
