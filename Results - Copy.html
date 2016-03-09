@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Smart Trip Planner</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/datepicker.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+   <script src="js/angular.min.js"></script>
+  
+        <script src="js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {                
+                $('#example1').datepicker({
+                    format: "dd/mm/yyyy"
+                }); 
+				$('#example2').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            
+            });
+        </script>
+    <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    @media only screen and (max-width: 800px) {
+    
+    /* Force table to not be like tables anymore */
+	#no-more-tables table, 
+	#no-more-tables thead, 
+	#no-more-tables tbody, 
+	#no-more-tables th, 
+	#no-more-tables td, 
+	#no-more-tables tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#no-more-tables thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#no-more-tables tr { border: 1px solid #ccc; }
+ 
+	#no-more-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#no-more-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	#no-more-tables td:before { content: attr(data-title); }
+}
+	
+	.navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+	.jumbotron_inner	
+	{
+	  background-color: #1097c7;
+      color:#000000;
+     font-family: Montserrat, sans-serif;
+	 margin-bottom:0px;
+	 border-radius:1px;
+	background:url(images/flight3a.jpg) no-repeat;
+	 width:100%;
+	 height:auto;
+	}
+	.jumbotron_inner h2	
+	{
+	margin-top:32px;
+	  
+	}
+	.mycontent-left {
+  border-right: 1px dashed #333;
+  height:100px;
+}
+.form-control
+{
+width:auto;
+}
+.well
+{
+margin:0px;
+}
+    
+    /* Add a gray background color and some padding to the footer */
+    .panel-footer, .navbar-default {
+	  background-color: #26292e;
+	  padding-bottom:1px;
+	  color:#FFFFFF;
+	  border:none;
+         }
+		 
+   .form-control1 {width:auto;
+}
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="well-md">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Smart Trip Planner</a>
+    </div>
+     </div>
+</nav>
+<div class="jumbotron jumbotron_inner text-center">
+ <h2>Plan Your Trip With US</h2> 
+<!-- <p>Whether you are jetting off for pleasure or traveling for business, <br>we offer past predict data and weather  and social factors prediction datas</p>-->
+  </div>
+</div>
+
+
+
+<div class="row panel panel-default">
+<div class="panel-heading">
+<div class="col-sm-9 col-md-8 col-lg-5">
+  <h4>Destination</h4>
+<form action="" class="form-inline">
+    <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">From</span>
+          <input type="text" class="form-control" placeholder="City, Airport" size="20">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">To</span>
+          <input type="text" class="form-control" placeholder="City, Airport" size="20">
+        </div>
+    </div>
+</form>
+</div>
+
+<div class="col-sm-5 col-md-5 col-lg-5"> 
+<h4>Date</h4>
+<form action="" class="form-inline">
+    <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Check In</span>
+          <input class="form-control" name="text" type="text" id="example1" placeholder="click to show date" size="10"> 
+            </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+           <a href="Results.html" type="button" class="btn btn-primary btn-md">Search</a>        </div>
+    </div>
+</form>
+      </div>
+<div class="clearfix"></div>
+</div></div>
+<div class="row">
+           <div class="panel-default panel-heading"><h4>Flight Results</h4></div>
+      <div class="panel-body"><ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">New Jersy1</a></li>
+  <li><a data-toggle="tab" href="#menu1">New Jersy2</a></li>
+  <li><a data-toggle="tab" href="#menu2">New Jersy3</a></li>
+</ul>
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <div id="no-more-tables" ng-app="myApp" ng-controller="myCtrl">
+           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+        				<th>Preference</th>
+        				<th>Airline</th>
+        				<th class="numeric">Departure</th>
+        				<th class="numeric">Arrival</th>
+        				<th class="numeric">Weather</th>
+        				<th class="numeric">Social</th>
+       				</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Green.jpg" alt="Green"></td>
+        				<td data-title="Airline">Air India</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">05:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Blue.jpg" alt="Blue"></td>
+        				<td data-title="Airline">Air Asia</td>
+        				<td data-title="Time" class="numeric">01:50</td>
+        				<td data-title="Time" class="numeric">06:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Red.jpg" alt="Red"></td>
+        				<td data-title="Airline">Jet Airways</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">09:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        		</tbody>
+        	</table>
+        </div>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <div id="no-more-tables">
+           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+        				<th>Preference</th>
+        				<th>Airline</th>
+        				<th class="numeric">Departure</th>
+        				<th class="numeric">Arrival</th>
+        				<th class="numeric">Weather</th>
+        				<th class="numeric">Social</th>
+       				</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Green.jpg" alt="Green"></td>
+        				<td data-title="Airline">Air India</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">05:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Blue.jpg" alt="Blue"></td>
+        				<td data-title="Airline">Air Asia</td>
+        				<td data-title="Time" class="numeric">01:50</td>
+        				<td data-title="Time" class="numeric">06:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Red.jpg" alt="Red"></td>
+        				<td data-title="Airline">Jet Airways</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">09:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        		</tbody>
+        	</table>
+        </div>
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <div id="no-more-tables">
+           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+        				<th>Preference</th>
+        				<th>Airline</th>
+        				<th class="numeric">Departure</th>
+        				<th class="numeric">Arrival</th>
+        				<th class="numeric">Weather</th>
+        				<th class="numeric">Social</th>
+       				</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Green.jpg" alt="Green"></td>
+        				<td data-title="Airline">Air India</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">05:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Blue.jpg" alt="Blue"></td>
+        				<td data-title="Airline">Air Asia</td>
+        				<td data-title="Time" class="numeric">01:50</td>
+        				<td data-title="Time" class="numeric">06:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        			<tr>
+        				<td data-title="Preference"><img src="images/Red.jpg" alt="Red"></td>
+        				<td data-title="Airline">Jet Airways</td>
+        				<td data-title="Time" class="numeric">02:50</td>
+        				<td data-title="Time" class="numeric">09:20</td>
+        				<td class="numeric" data-title="Weather"><img src="images/Weather1.jpg"> Clear with periodic clouds -  Precipitation: 0%,
+Humidity: 45%, Wind: 14 km/h</td>
+        				<td class="numeric" data-title="Social"><img src="images/Social.jpg"></td>
+       				</tr>
+        		</tbody>
+        	</table>
+        </div>
+  </div>
+</div>
+</div>
+  </div>
+<div class="row">
+<footer class="panel-footer text-center">
+  <p>@ Smart Trip Planner</p>
+</footer>
+</div>
+
+</div>
+</body>
+</html>
