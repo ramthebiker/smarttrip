@@ -286,6 +286,7 @@ margin:0px;}
 
 <script>
 var app = angular.module('myApp', []);
+<<<<<<< HEAD
 app.controller('myCtrl', function($scope, $http) {  
 
     $scope.GetFlightData = function () {
@@ -297,6 +298,16 @@ app.controller('myCtrl', function($scope, $http) {
                              // console.log("CHECK 1" + response.data);                                                       
                           });
     }
+=======
+app.controller('myCtrl', function($scope, $http) {
+  $http({
+    method : "GET",
+    url : "https://smarttriptest.azurewebsites.net/api/flight/Chennai(MAA)/Bangalore(BLR)/2016-03-21"
+  }).then(function mySucces(response) {
+      $scope.names = response.data;
+	  $timeout ($scope.fetch, 0);
+    });
+>>>>>>> origin/master
 });
 </script>
 </body>
