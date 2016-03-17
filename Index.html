@@ -285,30 +285,19 @@ margin:0px;}
 </div>
 
 <script>
+
 var app = angular.module('myApp', []);
-<<<<<<< HEAD
-app.controller('myCtrl', function($scope, $http) {  
-
+app.controller('myCtrl', function($scope, $http) {
     $scope.GetFlightData = function () {
-
-        $http({ method: "GET", url: 'http://flightdatalistapi.azurewebsites.net/api/Flight/' + $scope.From + '/' + $scope.To + '/' + $scope.TravelDate
-		}).
+        $http({ method: "GET", url: 'https://flightdatalistapi.azurewebsites.net/api/Flight/' + $scope.From + '/' + $scope.To + '/' + $scope.TravelDate }).
                           then(function (response) {
                               $scope.Flights = response.data;
-                             // console.log("CHECK 1" + response.data);                                                       
+                              //console.log("CHECK 1" + response.data);
+                             // var transformed = angular.fromJson(response);                             
                           });
     }
-=======
-app.controller('myCtrl', function($scope, $http) {
-  $http({
-    method : "GET",
-    url : "https://smarttriptest.azurewebsites.net/api/flight/Chennai(MAA)/Bangalore(BLR)/2016-03-21"
-  }).then(function mySucces(response) {
-      $scope.names = response.data;
-	  $timeout ($scope.fetch, 0);
-    });
->>>>>>> origin/master
 });
-</script>
+    </script>
+
 </body>
 </html>
