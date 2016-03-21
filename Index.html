@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Smart Trip Planner</title>
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/datepicker.css">
-  <link rel="stylesheet" href="css/normalize.css">
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <title>Smart Trip Planner</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/datepicker.css">
+	 <link rel="stylesheet" href="css/normalize.css">
+	 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-        <script src="js/jquery.js"></script>
+
+	 
+	 <script src="js/jquery.js"></script>
+	 <!-- <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js'></script>  -->
+	 <script src='https://code.angularjs.org/1.3.0/angular.min.js'></script>
+	 	 <!-- <script src="js/angular.min.js"></script>   -->
+	 
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/angular.min.js"></script>  
+       
         <script src="js/bootstrap-datepicker.js"></script>
+		
 		<script type="text/javascript">
                 $(document).ready(function () {
-    $('#example1').datepicker({
+    $('#flightdate').datepicker({
       format: "yyyy-mm-dd"
     });
 
@@ -29,173 +37,156 @@
     });
 });
  </script>
-    <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    @media only screen and (max-width: 800px) {    
-    /* Force table to not be like tables anymore */
-	#no-more-tables table, 
-	#no-more-tables thead, 
-	#no-more-tables tbody, 
-	#no-more-tables th, 
-	#no-more-tables td, 
-	#no-more-tables tr { 
-		display: block; }
- 
-	/* Hide table headers (but not display: none;, for accessibility) */
-	#no-more-tables thead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;	} 
-	#no-more-tables tr { border: 1px solid #ccc; } 
-	#no-more-tables td { 
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee; 
-		position: relative;
-		padding-left: 50%; 
-		white-space: normal;
-		text-align:left;
-	}
- 	#no-more-tables td:before { 
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-		text-align:left;
-		font-weight: bold;
-	}
- 
-	#no-more-tables td:before { content: attr(data-title); }
-}
-	.navbar {
-      margin-bottom: 0;
-      border-radius: 0;}
-	.jumbotron_inner{
-	  background-color: #1097c7;
-      color:#000000;
-     font-family: Montserrat, sans-serif;
-	 margin-bottom:0px;
-	 border-radius:1px;
-	background:url(images/flight3a.jpg) no-repeat;
-	 width:100%;
-	 height:auto;	}
-	.jumbotron_inner h2	{
-	margin-top:32px;}
-	.mycontent-left {
-  border-right: 1px dashed #333;
-  height:100px;}
-.form-control{
-width:auto;}
-.well{
-margin:0px;}
-    
-    /* Add a gray background color and some padding to the footer */
-    .panel-footer, .navbar-default {
-	  background-color: #26292e;
-	  padding-bottom:1px;
-	  color:#FFFFFF;
-	  border:none; }
-		 
-   .form-control1 {width:auto;}
-</style>	
+ <script src="js/index.js"></script>
 </head>
-
 <body>
-<div class="container-fluid" ng-app="myApp" ng-controller="myCtrl">
-<div class="row">
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="well-md">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Smart Trip Planner</a>
-    </div>
-     </div>
-</nav>
-<div class="jumbotron jumbotron_inner text-center">
- <h2>Plan Your Trip With US</h2> 
-  </div>
-</div>
-
-<div class="row panel panel-default">
-                    <div class="col-lg-12 panel-heading">
-                           <div><h4>Destination and Date</h4><br></div>
+   <div ng-app="myApp" ng-controller="myCtrl">
+   <div class="well well-sm">Smart Trip Planner</div>        
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-info alert-dismissable">
+                            <div><h4>Destination and Date</h4></div>
                              <form class="form-inline" role="form">
-  <div class="form-group">
+							 
+							 <div class="form-group">
     <label for="text">From:</label>
-    <input type="text" class="form-control" id="text" ng-model="From" placeholder="City, Airport" size="30">
+    <input type="text" class="form-control" id="txtfrm" ng-model="From" placeholder="City, Airport" size="30" list="_countries" keyboard-poster post-function="searchFlight">
+	 <datalist id="_countries">
+             <select style="display: none;" id="_select"
+name="_select" ng-model='selectedCountry' ng-options='k as v for (k,v) in countries'></select>
+</datalist>
   </div>
-  <div class="form-group">
+		<div class="form-group">
     <label for="text">To:</label>
-    <input type="text" class="form-control" id="pwd" ng-model="To" placeholder="City, Airport" size="30">
-  </div>
-  <div class="form-group">
+    <input type="text" class="form-control" id="txtTo" ng-model="To" placeholder="City, Airport" size="30" list="_countriesTo" keyboard-poster post-function="searchFlightTo">
+	 <datalist id="_countriesTo">
+             <select style="display: none;" id="_selectTo"
+name="_selectTo" ng-model='selectedCountryTo' ng-options='k as v for (k,v) in countries'></select>
+</datalist>
+  </div>					 
+		<div class="form-group">
     <label for="text">Date:</label>
-    <input type="text" class="form-control dp" id="example1" size="10" ng-model="TravelDate" placeholder="click to show date">
-  </div>
-  <button type="button" class="btn btn-primary" ng-click="GetFlightData()">Search</button><br><br>
-</form>
+    <input type="text" class="form-control dp" size="10" ng-model="TravelDate" placeholder="click to show date" id="flightdate">
+  </div> <button type="button" class="btn btn-primary" ng-click="GetFlightData()">Search</button></form> 					 
+</div>
                     </div>
                 </div>
+                
 
-<!--<div class="row panel panel-default">
-<div class="panel-heading">
-<div class="col-sm-9 col-md-8 col-lg-5">
-  <h4>Destination</h4>
-<form action="" class="form-inline">
-    <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">From</span>
-          <input type="text" class="form-control" placeholder="City, Airport" size="20" ng-model="From">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">To</span>
-          <input type="text" class="form-control" placeholder="City, Airport" size="20" ng-model="To">
-        </div>
-    </div>
-</form>
-</div>
+                <div class="row">
+				
+                        <div class="col-lg-4 col-md-6"  ng-repeat="x in NearbyAirports">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <span class="round_box"><img src="images/Green.jpg" width="23" height="25"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><span>{{x.Airport}}</span> {{x.DistanceFromSource}} kms</div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <span class="round_box"><img src="images/Blue.jpg" width="23" height="25"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><span>Trichy </span>22kms</div>
+                                        </div>
+                                </div>
+                            </div>
+                           </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <span class="round_box"><img src="images/Red.jpg" width="23" height="25"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><span>Madurai </span>10kms</div>
+                                        </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div> -->
+                </div>
+                <!-- /.row -->
 
-<div class="col-sm-5 col-md-5 col-lg-5"> 
-<h4>Date</h4>
-<form action="" class="form-inline">
-    <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">Check In</span>
-          <input class="form-control" name="text" type="text" id="example1" placeholder="click to show date" size="10" ng-model="TravelDate" > 
-            </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
-                     <input type="button" ng-click="GetFlightData()" value="Search"  class="btn btn-primary btn-md" /></div>
-    </div>
-</form>
-      </div>
-<div class="clearfix"></div>
-</div></div>-->
-
-<div class="row">
-           <div class="panel-default panel-heading"><h4>Flight Results</h4></div>
-      <div class="panel-body"><ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">Chennai</a></li>
-  <li><a data-toggle="tab" href="#menu1">Trichy</a></li>
-  <li><a data-toggle="tab" href="#menu2">Madurai</a></li>
-</ul>
-<div class="tab-content">
-  <div id="home" class="tab-pane fade in active">
-    <div id="no-more-tables" >
-           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><!--<i class="fa fa-bar-chart-o fa-fw"></i>--> Flight Details</h3>
+                            </div>
+                            <div class="panel-body">
+                                	<div id="no-more-tables">
+                                    <table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>
 					<th>Preference</th>
-        				<th>From</th>
-        				<th>To</th>
-        				<th>Departure</th>
+							<th>Destination</th>
+							<!--<th>Carrier</th>-->
+							<th>Duration</th>
+							<th>Departure</th>
+							<th>Sale Total</th>
 						 </tr>
+        		</thead>
+        		<tbody>
+        			<tr ng-repeat="x in Flights">
+        					<td data-title="Preference">
+					<span ng-if="x.OnTimePerformance === '1'"> 
+						<img src="images/Green.jpg" alt="Green"></span>
+                       <span ng-if="x.OnTimePerformance === '3'">
+						<img src="images/Red.jpg" alt="Red">
+					 	</span> 
+						<span ng-if="x.OnTimePerformance === '2'">
+						<img src="images/Blue.jpg" alt="Blue">
+					 	</span> 
+						
+						</td> 
+        				<td data-title="{{x.DestinationName}}">{{x.DestinationName}}</td>
+						<!--<td data-title="{{x.CarrierName}}">{{x.CarrierName}}</td>-->
+						<td data-title="{{x.Duration}}">{{x.Duration}}</td>
+						<td data-title="{{x.DepartureTime}}">{{x.DepartureTime}}</td>
+						<td data-title="{{x.SaleTotal}}">{{x.SaleTotal}}</td>
+						
+						<!-- <td data-title="{{x.To}}">{{x.To}}</td>
+        				<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td> -->
+        				</tr>
+        			
+        		</tbody>
+        	</table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                        <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><!--<i class="fa fa-clock-o fa-fw"></i>--> Weather Information</h3>
+                            </div>
+                            <div class="panel-body">
+                               <div> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+					<th>Weather</th>
+        			<th>Description</th>
+				  </tr>
         		</thead>
         		<tbody>
         			<tr ng-repeat="x in Flights">
@@ -206,25 +197,29 @@ margin:0px;}
 						<img src="images/Red.jpg" alt="Red">
 						</span>
 						</td>
-        				<td data-title="{{x.From}}">{{x.From}}</td>
-						<td data-title="{{x.To}}">{{x.To}}</td>
         				<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>
-        				</tr>
+   				  </tr>
         			
         		</tbody>
-        	</table>
-        </div>
-  </div>
-  <div id="menu1" class="tab-pane fade">
-    <div id="no-more-tables">
-           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        	</table></div>
+                                <div class="text-right">
+                                    <a href="#">View more feeds <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><!--<i class="fa fa-money fa-fw"></i>--> Social Information</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div> <table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>
-					<th>Preference</th>
-        				<th>From</th>
-        				<th>To</th>
-        				<th>Departure</th>
-						 </tr>
+					<th>Factors</th>
+        			<th>Description</th>
+				  </tr>
         		</thead>
         		<tbody>
         			<tr ng-repeat="x in Flights">
@@ -235,69 +230,24 @@ margin:0px;}
 						<img src="images/Red.jpg" alt="Red">
 						</span>
 						</td>
-        				<td data-title="{{x.From}}">{{x.From}}</td>
-						<td data-title="{{x.To}}">{{x.To}}</td>
         				<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>
-        				</tr>
+   				  </tr>
         			
         		</tbody>
-        	</table>
+        	</table></div>
+                                <div class="text-right">
+                                    <a href="#">View more feeds <!--<i class="fa fa-arrow-circle-right"></i>--></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                          </div>
+          
+
         </div>
-  </div>
-  <div id="menu2" class="tab-pane fade">
-    <div id="no-more-tables">
-           <br> <table class="col-md-12 table-bordered table-striped table-condensed cf">
-        		<thead class="cf">
-        			<tr>
-					<th>Preference</th>
-        				<th>From</th>
-        				<th>To</th>
-        				<th>Departure</th>
-						 </tr>
-        		</thead>
-        		<tbody>
-        			<tr ng-repeat="x in Flights">
-        				<td data-title="Preference">
-						<span ng-if="x.PreferenceFlag === 'G'">
-						<img src="images/Green.jpg" alt="Green"></span>
-                        <span ng-if="x.PreferenceFlag === 'R'">
-						<img src="images/Red.jpg" alt="Red">
-						</span>
-						</td>
-        				<td data-title="{{x.From}}">{{x.From}}</td>
-						<td data-title="{{x.To}}">{{x.To}}</td>
-        				<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>
-        				</tr>
-        			
-        		</tbody>
-        	</table>
-        </div>
-  </div>
-</div>
-</div>
-  </div>
-<div class="row">
-<footer class="panel-footer text-center">
-  <p>@ Smart Trip Planner</p>
-</footer>
-</div>
-
-</div>
-
-<script>
-
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope, $http) {
-    $scope.GetFlightData = function () {
-        $http({ method: "GET", url: 'https://flightdatalistapi.azurewebsites.net/api/Flight/' + $scope.From + '/' + $scope.To + '/' + $scope.TravelDate }).
-                          then(function (response) {
-                              $scope.Flights = response.data;
-                              //console.log("CHECK 1" + response.data);
-                             // var transformed = angular.fromJson(response);                             
-                          });
-    } 
-});
-    </script>
-
-</body>
+       
+<div class="footer text-center">@Smart Trip Planner</div>
+    </div>	
+ </body>
 </html>
