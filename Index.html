@@ -215,22 +215,19 @@ name="_selectTo" ng-model='selectedCountryTo' ng-options='k as v for (k,v) in co
                             </div>
                             <div class="panel-body">
                                 <div> <table class="col-md-12 table-bordered table-striped table-condensed cf">
-        		<thead class="cf">
+        		<!--<thead class="cf">
         			<tr>
 					<th>Factors</th>
         			<th>Description</th>
 				  </tr>
-        		</thead>
+        		</thead>-->
         		<tbody>
-        			<tr ng-repeat="x in Flights">
+        			<tr ng-repeat="x in social">
         				<td data-title="Preference">
-						<span ng-if="x.PreferenceFlag === 'G'">
-						<img src="images/Green.jpg" alt="Green"></span>
-                        <span ng-if="x.PreferenceFlag === 'R'">
-						<img src="images/Red.jpg" alt="Red">
+						<span ng-style= "x.PreferenceFlag === 'N' && {color:'blue'} || x.PreferenceFlag === 'Y' && {color: 'red'}" > {{ x.Feeds }} 
 						</span>
 						</td>
-        				<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>
+        				<!--<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>-->
    				  </tr>
         			
         		</tbody>

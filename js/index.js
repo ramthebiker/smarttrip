@@ -54,19 +54,30 @@ angular.module('myApp', [])
 		}
 		
   }
-  $scope.GetNearByAptData = function () {
+  
+$scope.GetNearByAptData = function () {
 			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/NearestAirport/'+ $scope.To }).
 						then(function (response) {
 							$scope.NearbyAirports = response.data;
 						});
 		}
-  $scope.GetFlightData = function () {
+		
+$scope.GetSocialFeedsData = function () {
+			$http({ method: "GET", url: 'http://socialfeedtp.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ $scope.To }).
+						then(function (response) {
+							$scope.social = response.data;
+						});
+		}	
+		
+		
+$scope.GetFlightData = function () {
 			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/trip/' + $scope.From + '/' + $scope.To + '/' + $scope.TravelDate }).
 						then(function (response) {
 							$scope.Flights = response.data;
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
-							$scope.GetNearByAptData();							
+							$scope.GetNearByAptData();	
+							$scope.GetSocialFeedsData();
 						});
 		}
 		
@@ -85,6 +96,7 @@ angular.module('myApp', [])
   }
   
 })
+
 .directive('keyboardPoster', function($parse, $timeout){
   var DELAY_TIME_BEFORE_POSTING = 3000;
   return function(scope, elem, attrs) {
