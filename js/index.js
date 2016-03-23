@@ -11,7 +11,7 @@ angular.module('myApp', [])
    var _flights = {};
    var flights = flights.data;
    for(var i = 0, len = flights.length; i < len; i++) {
-     _flights[flights[i].IATACode] = flights[i].City +", "+ flights[i].Country+"("+flights[i].IATACode+")";
+     _flights[ flights[i].City+"," + flights[i].IATACode ] = flights[i].City +", "+ flights[i].Country+"("+flights[i].IATACode+")";
    }
       deferred.resolve(_flights);
     }, function() {
@@ -26,7 +26,7 @@ angular.module('myApp', [])
    var _flights = {};
    var flights = flights.data;
    for(var i = 0, len = flights.length; i < len; i++) {
-     _flights[flights[i].IATACode] = flights[i].City +", "+ flights[i].Country+"("+flights[i].IATACode+")";
+     _flights[flights[i].City+"," + flights[i].IATACode ] = flights[i].City +", "+ flights[i].Country+"("+flights[i].IATACode+")";
    }
       deferred.resolve(_flights);
     }, function() {
@@ -43,6 +43,12 @@ angular.module('myApp', [])
 		$scope.selectedCountryTo = null;
 		$scope.countries = {};
 		$scope.countriesTo = {};
+		
+		console.log("check -- " + $scope.To );
+       // var selLocation =	$scope.To ;
+		//var selLocCode = ( selLocation.split(',')[0] ) ;
+		//var selLocDesc = ( selLocation.split(',')[1] ) ;
+		
 		$scope.mockSearchFlight = function() {
 		$scope.countries= {
 		'Zurich': 'Switzerland',
@@ -53,31 +59,62 @@ angular.module('myApp', [])
 		'Canada': 'Vancouver'
 		}
 		
+		  
+   $scope.LoadTabData = function() {
+   console.log("CHECK 1");
+  }
+  
+		
   }
   
 $scope.GetNearByAptData = function () {
-			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/NearestAirport/'+ $scope.To }).
+			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/NearestAirport/'+ $scope.To.split(',')[1] }).
 						then(function (response) {
 							$scope.NearbyAirports = response.data;
 						});
 		}
 		
 $scope.GetSocialFeedsData = function () {
-			$http({ method: "GET", url: 'http://socialfeedtp.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ $scope.To }).
+			$http({ method: "GET", url: 'https://socialfeedtp.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ $scope.To.split(',')[0] }).
 						then(function (response) {
 							$scope.social = response.data;
 						});
-		}	
+		}
 		
+		/*$scope.GetWeatherData = function () {
+			$http({ method: "GET", url: 'http://nextgen-env.us-west-2.elasticbeanstalk.com/api/weather/'+ $scope.To + '/' + $scope.TravelDate }).
+						then(function (response) {
+							$scope.whrForecast = response.data;
+						});
+		}
 		
+		$scope.GetWeatherData = function () {
+			$http({ method: "GET", url: 'https://nextgen-env.us-west-2.elasticbeanstalk.com/api/weather/London/'+ $scope.TravelDate }).
+						then(function (response) {
+							$scope.whrForecast = response.data;
+						});
+						$http.defaults.headers.put = {
+	        'Access-Control-Allow-Origin': '*',
+	        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+	        'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With'
+	        };
+		}*/
+		$scope.GetWeatherData = function () {
+			$http({ method: "GET", url: 'https://openmapweatherapi.azurewebsites.net/api/weather/'+ $scope.To.split(',')[0] }).
+						then(function (response) {
+							$scope.whrForecast = response.data;
+							
+						});
+						}
 $scope.GetFlightData = function () {
-			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/trip/' + $scope.From + '/' + $scope.To + '/' + $scope.TravelDate }).
+			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
 						then(function (response) {
 							$scope.Flights = response.data;
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
 							$scope.GetNearByAptData();	
 							$scope.GetSocialFeedsData();
+							$scope.GetWeatherData();
 						});
 		}
 		
@@ -94,6 +131,8 @@ $scope.GetFlightData = function () {
       $scope.countries = countriesTo;
     });
   }
+  
+
   
 })
 
