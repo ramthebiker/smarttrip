@@ -1,11 +1,15 @@
-angular.module('myApp', [])
+var angularApp = angular.module('myApp', [])
 .config(['$httpProvider', function($httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }])
-.service('Geolocator', function($q, $http){
+
+
+
+.service('Geolocator', function ($q, $http) {
+
   var API_URL = 'https://flighttp.azurewebsites.net/api/iata/';
-  this.searchFlight = function(term) {
+  this.searchFlight = function (term) {
     var deferred = $q.defer();
  $http.get(API_URL+term).then(function(flights){
    var _flights = {};
@@ -20,7 +24,7 @@ angular.module('myApp', [])
     return deferred.promise;
   } 
   
-  this.searchFlightTo = function(term) {
+  this.searchFlightTo1 = function (term) {
     var deferred = $q.defer();
  $http.get(API_URL+term).then(function(flights){
    var _flights = {};
@@ -34,17 +38,85 @@ angular.module('myApp', [])
     });
     return deferred.promise;
   }
+
+
+  this.searchFlightTo2 = function (term, $scope) {
+      var deferred = $q.defer();
+      $http.get(API_URL + term).then(function (flights) {
+          var _flights = {};
+          var flights = flights.data;
+          for (var i = 0, len = flights.length; i < len; i++) {
+              _flights[flights[i].City + "," + flights[i].IATACode] = flights[i].City + ", " + flights[i].Country + "(" + flights[i].IATACode + ")";
+          }
+          deferred.resolve(_flights);
+      }, function () {
+          deferred.reject(arguments);
+      });
+      return deferred.promise;
+  }
+
+
+  this.searchFlightTo = function (term,$scope) {
+     
+      
+      var dates = $scope.flightCodes;
+      
+      var deferred = $q.defer();
+      
+          var _flights = {};
+          var flights = dates;
+          for (var i = 0, len = 5; i < len; i++)
+          {
+              _flights[flights[i].City + "," + flights[i].IATACode] = flights[i].City + ", " + flights[i].Country + "(" + flights[i].IATACode + ")";
+          }
+          deferred.resolve(_flights);
+          //deferred.reject(arguments);
+
+            return deferred.promise;
+          //return _flights;
+  }
   
    
 	
 })
-.controller('myCtrl', function($scope, $timeout, Geolocator, $http) {
+
+
+
+
+
+.controller('myCtrl', function ($scope, $timeout, Geolocator, $http) {
+    
+    
 		$scope.selectedCountry = null;
 		$scope.selectedCountryTo = null;
 		$scope.countries = {};
 		$scope.countriesTo = {};
+		$scope.flightCodes = {};
 		
-		console.log("check -- " + $scope.To );
+		$scope.LoadFlights = function (City, IATACode) {
+			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/trip/' + $scope.From.split(',')[1] + '/' + IATACode + '/' + $scope.TravelDate }).
+						then(function (response) {
+							$scope.Flights = response.data;
+							//console.log("CHECK 1" + response.data);
+							// var transformed = angular.fromJson(response);        
+							//$scope.GetNearByAptData();	
+							//$scope.GetSocialFeedsData();
+							//$scope.GetWeatherData();
+						});
+						
+						$http({ method: "GET", url: 'https://socialfeedtp.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ City }).
+						then(function (response) {
+							$scope.social = response.data;
+						});
+						
+						$http({ method: "GET", url: 'https://openmapweatherapi.azurewebsites.net/api/weather/'+ City }).
+						then(function (response) {
+							$scope.whrForecast = response.data;
+							
+						});
+		console.log("CHECK 7" + City);
+		}
+		//console.log("check -- " + $scope.To );
        // var selLocation =	$scope.To ;
 		//var selLocCode = ( selLocation.split(',')[0] ) ;
 		//var selLocDesc = ( selLocation.split(',')[1] ) ;
@@ -57,16 +129,14 @@ angular.module('myApp', [])
 		$scope.countriesTo= {
 		'Zurich': 'Switzerland',
 		'Canada': 'Vancouver'
-		}
-		
-		  
-   $scope.LoadTabData = function() {
-   console.log("CHECK 1");
-  }
-  
+		}		
 		
   }
   
+  
+  
+		
+		
 $scope.GetNearByAptData = function () {
 			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/NearestAirport/'+ $scope.To.split(',')[1] }).
 						then(function (response) {
@@ -105,11 +175,14 @@ $scope.GetSocialFeedsData = function () {
 							$scope.whrForecast = response.data;
 							
 						});
-						}
+		}
+
+
 $scope.GetFlightData = function () {
 			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
 						then(function (response) {
-							$scope.Flights = response.data;
+						    $scope.Flights = response.data;
+                            
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
 							$scope.GetNearByAptData();	
@@ -127,11 +200,41 @@ $scope.GetFlightData = function () {
   }
   
   $scope.searchFlightTo = function(term) {
-    Geolocator.searchFlightTo(term).then(function(countriesTo){
-      $scope.countries = countriesTo;
+      Geolocator.searchFlightTo(term, $scope).then(function (countriesTo) {
+      $scope.countriesTo = countriesTo;
     });
   }
   
+  angular.element(document).ready(function () {
+
+      $(".overlay").show();
+
+      var API_URL = 'https://flighttp.azurewebsites.net/api/iata/';
+
+      
+      
+
+      $http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/iata/' }).
+						then(function (response)
+						{
+						    $scope.flightCodes = response.data;
+
+                            
+						    var dates = $scope.flightCodes;
+
+						    var _flights = {};
+						    var flights = dates;
+						    for (var i = 0, len = flights.length; i < len; i++)
+						    {
+						        _flights[flights[i].City + "," + flights[i].IATACode] = flights[i].City + ", " + flights[i].Country + "(" + flights[i].IATACode + ")";
+						    }
+
+						    $scope.countriesTo = _flights;
+						    $scope.countries = _flights;
+						    //alert('Great');
+						    $(".overlay").hide();
+						});
+  });
 
   
 })
@@ -156,3 +259,6 @@ $scope.GetFlightData = function () {
     }
   }
 })
+
+// at the bottom of your controller
+

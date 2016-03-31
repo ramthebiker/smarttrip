@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -7,26 +7,26 @@
     <title>Smart Trip Planner</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/datepicker.css">
-	 <link rel="stylesheet" href="css/normalize.css">
-	 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <link rel="stylesheet" href="css/datepicker.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-	 
-	 <script src="js/jquery.js"></script>
-	 <!-- <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js'></script>  -->
-	 <script src='https://code.angularjs.org/1.3.0/angular.min.js'></script>
-	 	 <!-- <script src="js/angular.min.js"></script>   -->
-	 
-        <script src="js/bootstrap.min.js"></script>
-       
-        <script src="js/bootstrap-datepicker.js"></script>
-		
-		<script type="text/javascript">
+
+    <script src="js/jquery.js"></script>
+    <!-- <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js'></script>  -->
+    <script src='https://code.angularjs.org/1.3.0/angular.min.js'></script>
+    <!-- <script src="js/angular.min.js"></script>   -->
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/bootstrap-datepicker.js"></script>
+
+    <script type="text/javascript">
                 $(document).ready(function () {
     $('#flightdate').datepicker({
       format: "yyyy-mm-dd"
@@ -36,67 +36,79 @@
         $('.datepicker').hide();
     });
 });
- </script>
- <script src="js/index.js"></script>
+    </script>
+    <script src="js/index.js"></script>
 </head>
 <body>
-   <div ng-app="myApp" ng-controller="myCtrl">
-   <div class="well well-sm">Smart Trip Planner</div>        
-        <div id="page-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <div><h4>Destination and Date</h4></div>
-                             <form class="form-inline" role="form">
-							 
-							 <div class="form-group">
-    <label for="text">From:</label>
-    <input type="text" class="form-control" id="txtfrm" ng-model="From" placeholder="City, Airport" size="30" list="_countries" keyboard-poster post-function="searchFlight">
-	 <datalist id="_countries">
-             <select style="display: none;" id="_select"
-name="_select" ng-model='selectedCountry' ng-options='k as v for (k,v) in countries'></select>
-</datalist>
-  </div>
-		<div class="form-group">
-    <label for="text">To:</label>
-    <input type="text" class="form-control" id="txtTo" ng-model="To" placeholder="City, Airport" size="30" list="_countriesTo" keyboard-poster post-function="searchFlightTo">
-	 <datalist id="_countriesTo">
-             <select style="display: none;" id="_selectTo"
-name="_selectTo" ng-model='selectedCountryTo' ng-options='k as v for (k,v) in countries'></select>
-</datalist>
-  </div>					 
-		<div class="form-group">
-    <label for="text">Date:</label>
-    <input type="text" class="form-control dp" size="10" ng-model="TravelDate" placeholder="click to show date" id="flightdate">
-  </div> <button type="button" class="btn btn-primary" ng-click="GetFlightData()">Search</button></form> 					 
-</div>
-                    </div>
-                </div>
-                
+    <div class="overlay">
+        <div id="loading-img"></div>
+    </div>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <div class="well well-sm"><span style="text-align:left; display:block; float:left;"><img src="images/Travel_logo1.jpg" width="185" height="51" class="img" /></span><span style="text-align:right; display:block;" class="clearfix"><img src="images/csc.png" width="47" height="26" /></span><!--Smart Trip Planner--></div>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-info alert-dismissable">
 
-                <div class="row">
-				
-                        <a href="#" name="" ng-click="LoadTabData()")><div class="col-lg-4 col-md-6"  ng-repeat="x in NearbyAirports">
+                                <div><h4>Destination and Date</h4></div>
+                                <form class="form-inline" role="form">
+
+                                    <div class="form-group">
+                                        <label for="text">From:</label>
+                                        <input type="text" class="form-control" id="txtfrm" ng-model="From" placeholder="City, Airport" size="30" list="_countries">
+                                        <datalist id="_countries">
+                                            <select style="display: none;" id="_select"
+                                                    name="_select" ng-model='selectedCountry' ng-options='k as v for (k,v) in countries'></select>
+                                        </datalist>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">To:</label>
+                                        <input type="text" class="form-control" id="txtTo" ng-model="To" placeholder="City, Airport" size="30" list="_countriesTo">
+                                        <datalist id="_countriesTo">
+                                            <select style="display: none;" id="_selectTo"
+                                                    name="_selectTo" ng-model='selectedCountryTo' ng-options='k as v for (k,v) in countriesTo'></select>
+                                        </datalist>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="text">Date:</label>
+                                        <input type="text" class="form-control dp" size="10" ng-model="TravelDate" placeholder="click to show date" id="flightdate">
+                                    </div> <button type="button" class="btn btn-primary" ng-click="GetFlightData()">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-6" ng-repeat="x in NearbyAirports">
+                            <a href="#" ng-click="LoadFlights(x.Airport, x.IATACode)">
+                                <div class="panel panel-green">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <span class="round_box"><img src="images/Green.jpg" width="23" height="25"> </span>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"><span>{{x.Airport}}</span> {{x.DistanceFromSource}} kms</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div ng-show="x.RecommendedFlag=='Y'"><img src="images/recommended-icon.jpg" width="89" height="23" /></div>
+                                </div>
+                            </a>
+                        </div>
+
+
+                        <!--<div class="col-lg-4 col-md-6">
                         <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
                                         <span class="round_box"><img src="images/Green.jpg" width="23" height="25"></span>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><span>{{x.Airport}}</span> {{x.DistanceFromSource}} kms</div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div></a>
-                    <!-- <div class="col-lg-4 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <span class="round_box"><img src="images/Blue.jpg" width="23" height="25"></span>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"><span>Trichy </span>22kms</div>
@@ -117,133 +129,142 @@ name="_selectTo" ng-model='selectedCountryTo' ng-options='k as v for (k,v) in co
                                         </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div> -->
-                </div>
-                <!-- /.row -->
+                    </div>
+                    <!-- /.row -->
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><!--<i class="fa fa-bar-chart-o fa-fw"></i>--> Flight Details</h3>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><!--<i class="fa fa-bar-chart-o fa-fw"></i>--> Flight Details</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="no-more-tables">
+                                        <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                                            <thead class="cf">
+                                                <tr>
+                                                    <th>Preference</th>
+                                                    <th>CarrierName</th>
+                                                    <th>Destination</th>
+                                                    <!--<th>Carrier</th>-->
+                                                    <th>Duration</th>
+                                                    <th>Departure</th>
+                                                    <th>Sale Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in Flights | orderBy:'-OnTimePerformance':true">
+                                                    <td data-title="Preference">
+                                                        <span ng-if="x.OnTimePerformance === '1'">
+                                                            <img src="images/Green.jpg" alt="Green">
+                                                        </span>
+                                                        <span ng-if="x.OnTimePerformance === '3'">
+                                                            <img src="images/Red.jpg" alt="Red">
+                                                        </span>
+                                                        <span ng-if="x.OnTimePerformance === '2'">
+                                                            <img src="images/Blue.jpg" alt="Blue">
+                                                        </span>
+
+                                                    </td>
+                                                    <td data-title="{{x.CarrierName}}">{{x.CarrierName}}</td>
+                                                    <td data-title="{{x.DestinationName}}">{{x.DestinationName}}</td>
+                                                    <!--<td data-title="{{x.CarrierName}}">{{x.CarrierName}}</td>-->
+                                                    <td data-title="{{x.Duration}}">{{x.Duration}}</td>
+                                                    <td data-title="{{x.DepartureTime}}">{{x.DepartureTime}}</td>
+                                                    <td data-title="{{x.SaleTotal}}">{{x.SaleTotal}}</td>
+
+                                                    <!-- <td data-title="{{x.To}}">{{x.To}}</td>
+                                                <td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td> -->
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                	<div id="no-more-tables">
-                                    <table class="col-md-12 table-bordered table-striped table-condensed cf">
-        		<thead class="cf">
-        			<tr>
-					<th>Preference</th>
-					<th>CarrierName</th>
-							<th>Destination</th>
-							<!--<th>Carrier</th>-->
-							<th>Duration</th>
-							<th>Departure</th>
-							<th>Sale Total</th>
-						 </tr>
-        		</thead>
-        		<tbody>
-        			<tr ng-repeat="x in Flights">
-        					<td data-title="Preference">
-					<span ng-if="x.OnTimePerformance === '1'"> 
-						<img src="images/Green.jpg" alt="Green"></span>
-                       <span ng-if="x.OnTimePerformance === '3'">
-						<img src="images/Red.jpg" alt="Red">
-					 	</span> 
-						<span ng-if="x.OnTimePerformance === '2'">
-						<img src="images/Blue.jpg" alt="Blue">
-					 	</span> 
-						
-						</td> 
-						<td data-title="{{x.CarrierName}}">{{x.CarrierName}}</td>
-        				<td data-title="{{x.DestinationName}}">{{x.DestinationName}}</td>
-						<!--<td data-title="{{x.CarrierName}}">{{x.CarrierName}}</td>-->
-						<td data-title="{{x.Duration}}">{{x.Duration}}</td>
-						<td data-title="{{x.DepartureTime}}">{{x.DepartureTime}}</td>
-						<td data-title="{{x.SaleTotal}}">{{x.SaleTotal}}</td>
-						
-						<!-- <td data-title="{{x.To}}">{{x.To}}</td>
-        				<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td> -->
-        				</tr>
-        			
-        		</tbody>
-        	</table>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><!--<i class="fa fa-clock-o fa-fw"></i>--> Weather Information</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                        <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                                            <thead class="cf">
+                                                <tr>
+                                                    <th>Weather</th>
+                                                    <th>Min Temp</th>
+                                                    <th>Max Temp</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in whrForecast">
+                                                    <td data-title="{{x.WeatherIcon}}">
+                                                        <img src="{{x.WeatherIcon}}" /> {{x.Description}}
+                                                    </td>
+                                                    <td data-title="{{x.MinTemp}}">{{x.MinTemp}}</td>
+                                                    <td data-title="{{x.MaxTemp}}">{{x.MaxTemp}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--<div class="text-right">
+                                    <a href="#">View more feeds <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><!--<i class="fa fa-money fa-fw"></i>--> Social Information</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                        <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                                            <!--<thead class="cf">
+                                            <tr>
+                                            <th>Factors</th>
+                                            <th>Description</th>
+                                          </tr>
+                                        </thead>-->
+                                            <tbody>
+                                                <tr ng-repeat="x in social">
+                                                    <td data-title="Preference">
+                                                        <span ng-style="x.PreferenceFlag === 'N' && {color:'red'} || x.PreferenceFlag === 'Y' && {color: 'blue'}">
+                                                            {{ x.Feeds }}
+                                                        </span>
+                                                    </td>
+                                                    <!--<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>-->
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- <div class="text-right">
+                                     <a href="#">View more feeds <!--<i class="fa fa-arrow-circle-right"></i></a>
+                                 </div>-->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
 
-                <div class="row">
-                        <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><!--<i class="fa fa-clock-o fa-fw"></i>--> Weather Information</h3>
-                            </div>
-                            <div class="panel-body">
-                               <div> <table class="col-md-12 table-bordered table-striped table-condensed cf">
-        		<thead class="cf">
-        			<tr>
-					<th>Weather</th>
-        			<th>Min Temp</th>
-					<th>Max Temp</th>
-				  </tr>
-        		</thead>
-        		<tbody>
-        			<tr ng-repeat="x in whrForecast">
-					<td data-title="{{x.WeatherIcon}}"><img src="{{x.WeatherIcon}}"/> {{x.Description}}				
-						</td>        				
-        				<td data-title="{{x.MinTemp}}">{{x.MinTemp}}</td>
-						<td data-title="{{x.MaxTemp}}">{{x.MaxTemp}}</td>
-   				  </tr>
-        			
-        		</tbody>
-        	</table></div>
-                                <!--<div class="text-right">
-                                    <a href="#">View more feeds <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><!--<i class="fa fa-money fa-fw"></i>--> Social Information</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div> <table class="col-md-12 table-bordered table-striped table-condensed cf">
-        		<!--<thead class="cf">
-        			<tr>
-					<th>Factors</th>
-        			<th>Description</th>
-				  </tr>
-        		</thead>-->
-        		<tbody>
-        			<tr ng-repeat="x in social">
-        				<td data-title="Preference">
-						<span ng-style= "x.PreferenceFlag === 'N' && {color:'red'} || x.PreferenceFlag === 'Y' && {color: 'blue'}" > {{ x.Feeds }} 
-						</span>
-						</td>
-        				<!--<td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td>-->
-   				  </tr>
-        			
-        		</tbody>
-        	</table></div>
-                               <!-- <div class="text-right">
-                                    <a href="#">View more feeds <!--<i class="fa fa-arrow-circle-right"></i></a>
-                                </div>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                          </div>
-          
 
+            </div>
+
+            <div class="footer text-center">@Smart Trip Planner</div>
         </div>
-       
-<div class="footer text-center">@Smart Trip Planner</div>
-    </div>	
- </body>
+    
+    
+</body>
 </html>
