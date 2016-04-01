@@ -8,7 +8,7 @@ var angularApp = angular.module('myApp', [])
 
 .service('Geolocator', function ($q, $http) {
 
-  var API_URL = 'https://flighttp.azurewebsites.net/api/iata/';
+  var API_URL = 'https://flightdataapi11.azurewebsites.net/api/iata/';
   this.searchFlight = function (term) {
     var deferred = $q.defer();
  $http.get(API_URL+term).then(function(flights){
@@ -94,7 +94,7 @@ var angularApp = angular.module('myApp', [])
 		$scope.flightCodes = {};
 		
 		$scope.LoadFlights = function (City, IATACode) {
-			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/trip/' + $scope.From.split(',')[1] + '/' + IATACode + '/' + $scope.TravelDate }).
+			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + IATACode + '/' + $scope.TravelDate }).
 						then(function (response) {
 							$scope.Flights = response.data;
 							//console.log("CHECK 1" + response.data);
@@ -104,12 +104,12 @@ var angularApp = angular.module('myApp', [])
 							//$scope.GetWeatherData();
 						});
 						
-						$http({ method: "GET", url: 'https://socialfeedtp.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ City }).
+						$http({ method: "GET", url: 'https://socialfeedapi11.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ City }).
 						then(function (response) {
 							$scope.social = response.data;
 						});
 						
-						$http({ method: "GET", url: 'https://openmapweatherapi.azurewebsites.net/api/weather/'+ City }).
+						$http({ method: "GET", url: 'https://weatherapi11.azurewebsites.net/api/weather/'+ City }).
 						then(function (response) {
 							$scope.whrForecast = response.data;
 							
@@ -138,14 +138,14 @@ var angularApp = angular.module('myApp', [])
 		
 		
 $scope.GetNearByAptData = function () {
-			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/NearestAirport/'+ $scope.To.split(',')[1] }).
+			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/NearestAirport/'+ $scope.To.split(',')[1] }).
 						then(function (response) {
 							$scope.NearbyAirports = response.data;
 						});
 		}
 		
 $scope.GetSocialFeedsData = function () {
-			$http({ method: "GET", url: 'https://socialfeedtp.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ $scope.To.split(',')[0] }).
+			$http({ method: "GET", url: 'https://socialfeedapi11.azurewebsites.net/api/SocialMedia/SocialFeeds/'+ $scope.To.split(',')[0] }).
 						then(function (response) {
 							$scope.social = response.data;
 						});
@@ -170,7 +170,7 @@ $scope.GetSocialFeedsData = function () {
 	        };
 		}*/
 		$scope.GetWeatherData = function () {
-			$http({ method: "GET", url: 'https://openmapweatherapi.azurewebsites.net/api/weather/'+ $scope.To.split(',')[0] }).
+			$http({ method: "GET", url: 'https://weatherapi11.azurewebsites.net/api/weather/'+ $scope.To.split(',')[0] }).
 						then(function (response) {
 							$scope.whrForecast = response.data;
 							
@@ -179,10 +179,10 @@ $scope.GetSocialFeedsData = function () {
 
 
 $scope.GetFlightData = function () {
-			$http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
+			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
 						then(function (response) {
 						    $scope.Flights = response.data;
-                            
+                            $("#dvDetails").show();
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
 							$scope.GetNearByAptData();	
@@ -209,12 +209,12 @@ $scope.GetFlightData = function () {
 
       $(".overlay").show();
 
-      var API_URL = 'https://flighttp.azurewebsites.net/api/iata/';
+      var API_URL = 'https://flightdataapi11.azurewebsites.net/api/iata/';
 
       
       
 
-      $http({ method: "GET", url: 'https://flighttp.azurewebsites.net/api/iata/' }).
+      $http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/iata/' }).
 						then(function (response)
 						{
 						    $scope.flightCodes = response.data;
