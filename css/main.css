@@ -355,3 +355,8 @@ padding-bottom:0px;
 border:0px;
 box-shadow:none;
 }
+
+.alert-dismissable .close, .alert-dismissible .close
+{
+top:-17px;
+}

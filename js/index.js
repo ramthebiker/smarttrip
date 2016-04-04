@@ -99,6 +99,19 @@ var angularApp = angular.module('myApp', [])
 
 							$("#lblDestination").html($scope.From.split(',')[0] + " >> " + Airport);
 							$scope.Flights = response.data;
+							if (response.data.length == 1) {
+						        if (response.data[0].ErrorMessage != null) {
+						            $("#lblErrorMessage").html(response.data[0].ErrorMessage);
+						            $("#dvErrorMessage").show();
+						        }
+						    }
+						    else {
+						        $("#dvErrorMessage").hide();
+
+						        //console.log("CHECK 1" + response.data);
+						        // var transformed = angular.fromJson(response);        
+
+						    }
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
 							//$scope.GetNearByAptData();	
@@ -184,14 +197,30 @@ $scope.GetFlightData = function () {
 			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
 						then(function (response) {
 						    $scope.Flights = response.data;
-                            $("#dvDetails").show();
 							$("#lblDestination").html($scope.From.split(',')[0] + " >> " + $scope.To.split(',')[0]); 
 							$("#dvDestination").show();
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
-							$scope.GetNearByAptData();	
-							$scope.GetSocialFeedsData();
-							$scope.GetWeatherData();
+							$("#dvDetails").show();
+						    if (response.data.length == 1)
+						    {
+						        if(response.data[0].ErrorMessage != null)
+						        {
+						            $("#lblErrorMessage").html(response.data[0].ErrorMessage);
+						            $("#dvErrorMessage").show();
+						        }
+						    }
+						    else
+						    {
+						        $("#dvErrorMessage").hide();
+                                    
+							        //console.log("CHECK 1" + response.data);
+							        // var transformed = angular.fromJson(response);        
+							        
+						    }
+						    $scope.GetNearByAptData();
+						    $scope.GetSocialFeedsData();
+						    $scope.GetWeatherData();
 						});
 		}
 		
