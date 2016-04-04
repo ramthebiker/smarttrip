@@ -93,9 +93,11 @@ var angularApp = angular.module('myApp', [])
 		$scope.countriesTo = {};
 		$scope.flightCodes = {};
 		
-		$scope.LoadFlights = function (City, IATACode) {
+		$scope.LoadFlights = function (City, IATACode,Airport) {
 			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + IATACode + '/' + $scope.TravelDate }).
 						then(function (response) {
+
+							$("#lblDestination").html($scope.From.split(',')[0] + " >> " + Airport);
 							$scope.Flights = response.data;
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
@@ -183,6 +185,8 @@ $scope.GetFlightData = function () {
 						then(function (response) {
 						    $scope.Flights = response.data;
                             $("#dvDetails").show();
+							$("#lblDestination").html($scope.From.split(',')[0] + " >> " + $scope.To.split(',')[0]); 
+							$("#dvDestination").show();
 							//console.log("CHECK 1" + response.data);
 							// var transformed = angular.fromJson(response);        
 							$scope.GetNearByAptData();	

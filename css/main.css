@@ -344,3 +344,14 @@ background-color:#d9edf7;
     opacity: 0.8;
     z-index:200;
 }
+
+.alert-city
+{
+padding-bottom:0px;
+}
+
+.panel-box
+{
+border:0px;
+box-shadow:none;
+}

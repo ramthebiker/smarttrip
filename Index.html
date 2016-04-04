@@ -84,12 +84,12 @@
                     <div class="row">
 
                         <div class="col-lg-4 col-md-6" ng-repeat="x in NearbyAirports">
-                            <a href="#" ng-click="LoadFlights(x.City, x.IATACode)">
-                                <div class="panel panel-green">
+                            <a href="#" ng-click="LoadFlights(x.City, x.IATACode,x.Airport)">
+                                <div class="panel panel-green panel-box">
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-3">
-                                                <span class="round_box"><img src="images/Green.png" width="23" height="25"> </span>                                            </div>
+                                                <span class="round_box"><img src="images/Green.jpg" width="23" height="25"> </span>                                            </div>
                                             <div class="col-xs-9 text-right">
                                                 <div class="huge"><span>{{x.Airport}}</span> {{x.DistanceFromSource}} kms</div>
                                             </div>
@@ -102,36 +102,15 @@
                         </div>
 
 
-                        <!--<div class="col-lg-4 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <span class="round_box"><img src="images/Green.jpg" width="23" height="25"></span>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><span>Trichy </span>22kms</div>
-                                        </div>
-                                </div>
-                            </div>
-                           </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <span class="round_box"><img src="images/Red.jpg" width="23" height="25"></span>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><span>Madurai </span>10kms</div>
-                                        </div>
-                                </div>
-                            </div>
 
+
+<div class="col-lg-12" id="dvDestination"  style="display:none;">
+                            <div class="alert alert-info alert-dismissable alert-city">
+
+                                <div><h4><label id="lblDestination"></label></h4></div>
+                                                            </div>
                         </div>
-                    </div> -->
-                    </div>
+                                            </div>
                     <!-- /.row -->
 					<div id="dvDetails" style="display:none;">
                     <div class="row">
