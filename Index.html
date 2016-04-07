@@ -94,7 +94,7 @@
 
                     <div class="row">
 
-                        <div class="col-lg-4 col-md-6" ng-repeat="x in NearbyAirports">
+                        <div class="col-lg-4 col-md-12" ng-repeat="x in NearbyAirports">
                             <a href="#" ng-click="LoadFlights(x.City, x.IATACode,x.Airport)">
                                 <div class="panel panel-green panel-box">
                                     <div class="panel-heading">
@@ -115,7 +115,7 @@
 
 
 
-<div class="col-lg-12" id="dvDestination"  style="display:none;">
+<div class="col-lg-12 col-md-12" id="dvDestination"  style="display:none;">
                             <div class="alert alert-info alert-dismissable alert-city">
 
                                 <div><h4><label id="lblDestination"></label></h4></div>
@@ -125,9 +125,9 @@
 						<div class="col-lg-12" id="dvErrorMessage" style="display:none;">
                             <div class="alert alert-info alert-dismissable alert-city">
 
-                                <div><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><label id="lblErrorMessage" style="color:red;"></label></div>
+                                <div><!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--><label id="lblErrorMessage" style="color:red;"></label></div>
 						 </div>
-                        </div>
+                        </div> 
 						
                                             </div>
                     <!-- /.row -->
@@ -153,7 +153,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="x in Flights | orderBy:'-OnTimePerformance':true">
+                                                <tr ng-repeat="x in Flights | orderBy:'-OnTimePerformance':true" ng-if="x.CarrierName != null">
                                                     <td data-title="Preference">
                                                         <span ng-if="x.OnTimePerformance === '1'">
                                                             <img src="images/Green.jpg" alt="Green">
@@ -162,16 +162,16 @@
                                                             <img src="images/Red.jpg" alt="Red">
                                                         </span>
                                                         <span ng-if="x.OnTimePerformance === '2'">
-                                                            <img src="images/Blue.jpg" alt="Blue">
+                                                            <img src="images/Blue.jpg" alt="Blue"> 
                                                         </span>
 
                                                     </td>
-                                                    <td data-title="{{x.CarrierName}}">{{x.CarrierName}}</td>
-                                                    <td data-title="{{x.DestinationName}}">{{x.DestinationName}}</td>
+                                                    <td data-title="Carrier">{{x.CarrierName}}</td>
+                                                    <td data-title="Destination">{{x.DestinationName}}</td>
                                                     <!--<td data-title="{{x.CarrierName}}">{{x.CarrierName}}</td>-->
-                                                    <td data-title="{{x.Duration}}">{{x.Duration}}</td>
-                                                    <td data-title="{{x.DepartureTime}}">{{x.DepartureTime}}</td>
-                                                    <td data-title="{{x.SaleTotal}}">{{x.SaleTotal}}</td>
+                                                    <td data-title="Duration">{{x.Duration}}</td>
+                                                    <td data-title="DeptTime">{{x.DepartureTime}}</td>
+                                                    <td data-title="SaleTotal">{{x.SaleTotal}}</td>
 
                                                     <!-- <td data-title="{{x.To}}">{{x.To}}</td>
                                                 <td data-title="{{x.Departure}}">{{x.ScheduleDeparture}}</td> -->

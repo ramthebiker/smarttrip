@@ -94,7 +94,7 @@ var angularApp = angular.module('myApp', [])
 		$scope.flightCodes = {};
 		
 		$scope.LoadFlights = function (City, IATACode,Airport) {
-			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + IATACode + '/' + $scope.TravelDate }).
+			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/trip/' + $scope.From.split(',')[1] + '/' + IATACode + '/' + $scope.TravelDate }).
 						then(function (response) {
 
 							$("#lblDestination").html($scope.From.split(',')[0] + " >> " + Airport);
@@ -194,7 +194,7 @@ $scope.GetSocialFeedsData = function () {
 
 
 $scope.GetFlightData = function () {
-			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
+			$http({ method: "GET", url: 'https://flightdataapi11.azurewebsites.net/api/trip/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
 						then(function (response) {
 						    $scope.Flights = response.data;
 							$("#lblDestination").html($scope.From.split(',')[0] + " >> " + $scope.To.split(',')[0]); 
@@ -208,6 +208,8 @@ $scope.GetFlightData = function () {
 						        {
 						            $("#lblErrorMessage").html(response.data[0].ErrorMessage);
 						            $("#dvErrorMessage").show();
+									//$("#no-more-tables").hide();
+									
 						        }
 						    }
 						    else
@@ -218,6 +220,10 @@ $scope.GetFlightData = function () {
 							        // var transformed = angular.fromJson(response);        
 							        
 						    }
+							//if(response.data == null)
+							//{
+								//$("#no-more-tables").hide();
+							//}
 						    $scope.GetNearByAptData();
 						    $scope.GetSocialFeedsData();
 						    $scope.GetWeatherData();
