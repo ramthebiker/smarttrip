@@ -179,7 +179,7 @@ $scope.GetSocialFeedsData = function () {
 
 
 $scope.GetFlightData = function () {
-			$http({ method: "GET", url: 'https://flightdata.azurewebsites.net/api/tripdev/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
+			$http({ method: "GET", url: 'https://flightdata.azurewebsites.net/api/trip/' + $scope.From.split(',')[1] + '/' + $scope.To.split(',')[1] + '/' + $scope.TravelDate }).
 						then(function (response) {
 						    $scope.Flights = response.data;
                             $("#dvDetails").show();
